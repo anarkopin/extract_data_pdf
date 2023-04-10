@@ -2,11 +2,14 @@
 
 First clone the repository from Github and switch to the new directory:
 
-    $ git clone git@github.com/USERNAME/{{ project_name }}.git
+    $ git clone https://github.com/anarkopin/extract_data_pdf.git
     $ cd {{ project_name }}
     
 Activate the virtualenv for your project.
-    
+    $ python -m venv env
+    $ .\env\Scripts\Activate
+
+
 Install project dependencies:
 
     $ pip install -r requirements.txt
