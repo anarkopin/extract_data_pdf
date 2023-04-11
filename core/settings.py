@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
 
-DEBUG= os.environ.get('DEBUG')
+DEBUG= True
 
 # ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
