@@ -13,7 +13,7 @@ JWT_SECRET = os.environ.get('JWT_SECRET')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
 
 
 DJANGO_APPS = [
@@ -98,14 +98,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('NAME_DB'),
-        'USER': os.environ.get('USER_DB'),
-        'PASSWORD': os.environ.get('PASSWORD_DB'),
-        'HOST': os.environ.get('HOST_DB'),
-        'PORT': os.environ.get('PORT_DB'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
