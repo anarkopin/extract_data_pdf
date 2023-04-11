@@ -4,7 +4,7 @@ import Cookies from 'universal-cookie';
 
 
 //production
-const API_URL = "https://extract-data-pdf.onrender.com";
+const API_URL = "https://extract-data-pdf.onrender.com/api/user/";
 
 //local
 //const API_URL = "http://localhost:8081/api/user/";
