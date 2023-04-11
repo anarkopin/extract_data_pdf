@@ -13,7 +13,7 @@ JWT_SECRET = os.environ.get('JWT_SECRET')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+ALLOWED_HOSTS = ['8d5e-190-237-153-248.ngrok-free.ap']
 
 DJANGO_APPS = [
     'django.contrib.admin',
