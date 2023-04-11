@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
 
-DEBUG= os.environ.get('DEBUG')
+DEBUG= 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
@@ -148,9 +148,7 @@ CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-CORS_ORIGIN_ALLOW_ALL = True
-if DEBUG == 'False':
+if not DEBUG:
     ALLOWED_HOSTS=env.list('ALLOWED_HOSTS_DEPLOY')
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
