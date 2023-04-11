@@ -18,7 +18,7 @@ function App() {
           {/* <Route path="/" element={<Register />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} /> */}
-          <Route path="/taxes" element={<Home /> } />
+          <Route path="/" element={<Home /> } />
         </Routes>
     </Router>
     </Provider>
