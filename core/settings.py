@@ -13,7 +13,7 @@ JWT_SECRET = os.environ.get('JWT_SECRET')
 
 DEBUG= os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
 
 DJANGO_APPS = [
@@ -95,9 +95,9 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    "default": env.db("DATABASE_URL_DEV"),
-}
+# DATABASES = {
+#     "default": env.db("DATABASE_URL_DEV"),
+# }
 
 
 # Password validation
@@ -144,17 +144,17 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+# CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-if DEBUG=="RENDER":
-    ALLOWED_HOSTS=env.list('ALLOWED_HOSTS_DEPLOY')
-    CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
-    CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
+# if DEBUG=="RENDER":
+ALLOWED_HOSTS=env.list('ALLOWED_HOSTS_DEPLOY')
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
 
 
-    DATABASES = {
-        "default": env.db("DATABASE_URL_DEPLOY"),
-    }
-    DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES = {
+    "default": env.db("DATABASE_URL_DEPLOY"),
+}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
