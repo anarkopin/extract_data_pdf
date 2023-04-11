@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 //production
-const API_URL = "https://extract-data-pdf.onrender.com/api/pdf/operations/";
+const API_URL = "http://3.14.131.158:8085/api/pdf/operations/";
 
 //Local
 // const API_URL = "http://localhost:8081/api/pdf/operations/";
