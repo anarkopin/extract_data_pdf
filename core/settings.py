@@ -133,6 +133,11 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static'),
 ]
+
+import mimetypes
+
+mimetypes.add_type("text/html", ".html", True)
+mimetypes.add_type("text/css", ".css", True)
  
 REST_FRAMEWORK = {
 'DEFAULT_PARSER_CLASSES': (
