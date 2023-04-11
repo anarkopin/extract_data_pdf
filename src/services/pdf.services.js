@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/api/pdf/operations/";
+
+//production
+const API_URL = "https://extract-data-pdf.onrender.com/api/pdf/operations/";
+
+//Local
+// const API_URL = "http://localhost:8081/api/pdf/operations/";
 
 
 

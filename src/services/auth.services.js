@@ -3,7 +3,12 @@ import getCookie from "./utils";
 import Cookies from 'universal-cookie';
 
 
-const API_URL = "http://localhost:8081/api/user/";
+//production
+const API_URL = "https://extract-data-pdf.onrender.com";
+
+//local
+//const API_URL = "http://localhost:8081/api/user/";
+
 const cookies = new Cookies();
 
 

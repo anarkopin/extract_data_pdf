@@ -18,25 +18,35 @@ function UploadFile({ handleChangeProduct }) {
         event.preventDefault();
         //validar si el campo tiene un archivo pdf
 
-        if (file !== null && file.type === 'application/pdf') {
-            PDFService.extract_data(file).then(
-                (response) => {
-                    setError(false);
-                    setMessage("Success in processing pdf");
-                    setSuccess(true);
-                    //limpiar formulario
-                    setFile(null);
-                    event.target.reset();
-                    handleChangeProduct();
-                    
-                },
-                (error) => {
-                    setMessage("Error al procesar el archivo");
-                    setError(true);
-                }
-            );
+        if (file !== null) {
+            if (file.type === 'application/pdf') {
+                PDFService.extract_data(file).then(
+                    (response) => {
+                        setError(false);
+                        setMessage("Success in processing pdf");
+                        setSuccess(true);
+                        //limpiar formulario
+                        setFile(null);
+                        event.target.reset();
+                        handleChangeProduct(response);
+                        
+                    },
+                    (error) => {
+                        setMessage("Error processing file");
+                        setFile(null);
+                        event.target.reset();
+                        setError(true);
+                    }
+                );
+            } else {
+                setMessage('The file must be a PDF');
+                event.target.reset();
+                setFile(null);
+                setError(true);
+            }
         } else {
-            setMessage('El archivo debe ser un PDF');
+            setMessage('You have not uploaded a file');
+            event.target.reset();
             setError(true);
         }
         

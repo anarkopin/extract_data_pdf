@@ -1,7 +1,6 @@
 import dataclasses
 from typing import TYPE_CHECKING
 from . import models
-from django.conf import settings
 import re
 
 import pdfplumber
@@ -50,6 +49,11 @@ def extract_data_from_pdf(pdf_file) -> "TaxFiling":
     #extraer la tabla
     table = page.extract_text()
 
+    filing = None
+    identificador = None
+    wages = None
+    total_deductions = None
+
 
     #extraer el identificador marcado
     patron_identificador =  r"Your first name and middle initial Last name Your social security number\s+(\S+)"
@@ -94,10 +98,15 @@ def extract_data_from_pdf(pdf_file) -> "TaxFiling":
     else:
         print("No se encontró el numero de add amount.")
 
-    print(identificador)
-    print(filing)
-    print(wages)
-    print(total_deductions)
+    if not identificador:
+        identificador = "Unknown"
+    if not filing:
+        filing = "Unknown"
+    if not wages:
+        wages = "0"
+    if not total_deductions:
+        total_deductions = "0"
+
 
     objectExtract = {
         "identificador": identificador,

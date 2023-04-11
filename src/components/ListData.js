@@ -39,17 +39,17 @@ function ListData ({ data }) {
     </thead>
 
     <tbody className="divide-y divide-gray-200">
-        {data && data.map((item) => (
+        { data && data.identificador ? (
           <tr>
           <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-            {item.id}
+            {1}
           </td>
-          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{item.identificador}</td>
-          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{item.tax_filing}</td>
-          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{item.wages}</td>
-          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{item.total_deductions}</td>
+          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.identificador}</td>
+          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.tax_filing}</td>
+          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.wages}</td>
+          <td className="whitespace-nowrap px-4 py-2 text-gray-700">{data.total_deductions}</td>
         </tr>
-        ))}
+        ) : <></>}
 
     </tbody>
   </table>
