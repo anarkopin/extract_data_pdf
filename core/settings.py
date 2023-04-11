@@ -99,7 +99,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "default": env.db("DATABASE_URL_DEV"),
     }
 }
 
@@ -161,6 +161,6 @@ if not DEBUG:
 
 
     DATABASES = {
-        "default": env.db("DATABASE_URL"),
+        "default": env.db("DATABASE_URL_DEPLOY"),
     }
     DATABASES["default"]["ATOMIC_REQUESTS"] = True
