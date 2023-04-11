@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8081/api/pdf/operations/";
+const API_URL = "https://c58d-190-234-75-104.ngrok-free.app/api/pdf/operations/";
 
 
 

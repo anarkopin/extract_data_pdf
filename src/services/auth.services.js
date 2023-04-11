@@ -3,7 +3,7 @@ import getCookie from "./utils";
 import Cookies from 'universal-cookie';
 
 
-const API_URL = "http://localhost:8081/api/user/";
+const API_URL = "https://c58d-190-234-75-104.ngrok-free.app/api/user/";
 const cookies = new Cookies();
 
 
