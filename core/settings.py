@@ -12,11 +12,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
 
 # DEBUG= 'RENDER' not in os.environ
+#Add DEBUG
+DEBUG = True
+
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
 
-DEBUG = True
 
 
 
