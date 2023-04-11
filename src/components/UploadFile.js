@@ -32,10 +32,20 @@ function UploadFile({ handleChangeProduct }) {
                         
                     },
                     (error) => {
-                        setMessage("Error processing file");
-                        setFile(null);
-                        event.target.reset();
-                        setError(true);
+                        if (error.error === 'list index out of range') 
+                        {
+                            setMessage('Error processing the file, the file is not in the correct format for "Form 1040 U.S. Individual Income Tax Return 2021"');
+                            setFile(null);
+                            event.target.reset();
+                            setError(true);
+
+
+                        } else {
+                            setMessage("Error processing file");
+                            setFile(null);
+                            event.target.reset();
+                            setError(true);
+                        }
                     }
                 );
             } else {

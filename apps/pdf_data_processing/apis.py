@@ -32,7 +32,10 @@ class extract_data_pdf(APIView):
         
         #extraer datos del pdf y retornar TaxFiling
     
-        tax_filing_extract = services.extract_data_from_pdf(pdf_file)
+        try:
+            tax_filing_extract = services.extract_data_from_pdf(pdf_file)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = serializer_pdf.TaxFilingSerializer(data=tax_filing_extract)
         serializer.is_valid(raise_exception=True)
