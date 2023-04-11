@@ -30,7 +30,7 @@ pathspec
 pdfminer.six
 pdfplumber
 Pillow
-platformdirs=
+platformdirs
 # psycopg2==2.9.6
 psycopg2-binary
 pycparser
