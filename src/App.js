@@ -15,13 +15,10 @@ function App() {
           {/*Error display */}
           <Route path="*" element={<Error404 />} />
 
-          <Route path="/" element={<Register />} />
+          {/* <Route path="/" element={<Register />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/taxes" element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>} />
+          <Route path="/login" element={<Login />} /> */}
+          <Route path="/taxes" element={<Home /> } />
         </Routes>
     </Router>
     </Provider>

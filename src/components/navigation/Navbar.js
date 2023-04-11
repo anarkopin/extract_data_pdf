@@ -38,16 +38,7 @@ function Navbar(){
 
     
     const handleLogout = () => {
-        AuthService.logout().then(() => {
-          //eliminar cookie de localstorage
-          localStorage.removeItem("access_token");
-          localStorage.removeItem("token");
-        })
-        .catch((error) => {
-          localStorage.removeItem("access_token");
-          localStorage.removeItem("token");
-        });
-        window.location.href = "/login";
+        console.log('logout')
     }
 
 
