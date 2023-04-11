@@ -95,12 +95,10 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'default': env.db('DATABASE_URL'),
     }
-}
 
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -137,10 +135,13 @@ STATICFILES_DIRS = [
 ]
  
 REST_FRAMEWORK = {
-'DEFAULT_PARSER_CLASSES': (
-    'rest_framework.parsers.FormParser',
-    'rest_framework.parsers.MultiPartParser'
-    )
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny'
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser'
+        )
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -149,6 +150,10 @@ AUTH_USER_MODEL = 'users.User'
 # CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 # CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
 
 if DEBUG=='RENDER':
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
