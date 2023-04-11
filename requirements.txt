@@ -39,8 +39,8 @@ PyJWT==2.6.0
 PyMuPDF==1.21.1
 PyPDF2==2.0.0
 python-dateutil==2.8.2
-python-magic==0.4.15
-python-magic-bin==0.4.15
+#python-magic==0.4.15
+#python-magic-bin==0.4.15
 pytz==2023.3
 roman==4.0
 s3transfer==0.6.0

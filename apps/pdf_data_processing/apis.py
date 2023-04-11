@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import authentication_classes, permission_classes
 
 from rest_framework.views import APIView
-from magic import from_buffer
+# from magic import from_buffer
 from rest_framework.permissions import IsAuthenticated
 from . import services
 from . import serializer as serializer_pdf
@@ -28,9 +28,9 @@ class extract_data_pdf(APIView):
             return Response({'error': 'PDF file is required.'}, status=400)
         
         #validar que el archivo es pdf y no virus con pyPDF2
-        mime_type = from_buffer(pdf_file.read(), mime=True)
-        if mime_type != 'application/pdf':
-            return Response({'error': 'File is not a PDF.'}, status=400)
+        # mime_type = from_buffer(pdf_file.read(), mime=True)
+        # if mime_type != 'application/pdf':
+        #     return Response({'error': 'File is not a PDF.'}, status=400)
         
         #extraer datos del pdf y retornar TaxFiling
         tax_filing_extract = services.extract_data_from_pdf(pdf_file)
