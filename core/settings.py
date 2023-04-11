@@ -13,7 +13,8 @@ JWT_SECRET = os.environ.get('JWT_SECRET')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = ['8d5e-190-237-153-248.ngrok-free.ap']
+ALLOWED_HOSTS = ['*']
+
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -154,22 +155,15 @@ CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+
+CORS_ORIGIN_ALLOW_ALL = True
 if not DEBUG:
-    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
+    ALLOWED_HOSTS=env.list('ALLOWED_HOSTS_DEPLOY')
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
 
 
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('NAME_DB'),
-            'USER': os.environ.get('USER_DB'),
-            'PASSWORD': os.environ.get('PASSWORD_DB'),
-            'HOST': os.environ.get('HOST_DB'),
-            'PORT': os.environ.get('PORT_DB'),
-        }
+        "default": env.db("DATABASE_URL"),
     }
-
-
-    DATABASES['default']['ATOMIC_REQUESTS'] = True
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
