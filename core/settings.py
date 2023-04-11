@@ -13,7 +13,7 @@ JWT_SECRET = os.environ.get('JWT_SECRET')
 
 DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -146,11 +146,11 @@ REST_FRAMEWORK = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+# CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-if not DEBUG:
+if DEBUG=='RENDER':
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
