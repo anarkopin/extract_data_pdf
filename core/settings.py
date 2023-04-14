@@ -1,6 +1,7 @@
 from pathlib import Path
 import os
 import environ
+from datetime import timedelta
 
 env = environ.Env()
 environ.Env.read_env()
@@ -11,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
 
-DEBUG='RENDER'
+DEBUG=True
 
 # ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
 
@@ -25,6 +26,7 @@ DJANGO_APPS = [
 ]
 
 PROJECT_APPS = [
+    'apps.user',
     'apps.users',
     'apps.pdf_data_processing'
 
@@ -35,7 +37,12 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
-    'simple_history'
+    'simple_history',
+    'drf_yasg',
+    'djoser',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -98,9 +105,14 @@ DATABASES = {
         'default': env.db('DATABASE_URL'),
     }
 
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.BKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BcryptSHA256PasswordHasher',
+]
 
-# Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -137,14 +149,13 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ],
-    'DEFAULT_PARSER_CLASSES': (
-        'rest_framework.parsers.FormParser',
-        'rest_framework.parsers.MultiPartParser'
-        )
+    # 'DEFAULT_PARSER_CLASSES': (
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser'
+    #     )
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'users.User'
 
 # CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
 # CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
@@ -154,13 +165,54 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
 CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
 CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
 
-if DEBUG=='RENDER':
+
+DJOSER = {
+    'LOGIN_FIELD': 'username',
+    'USER_CREATE_PASSWORD_RETYPE':  True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'SEND_ACTIVATION_EMAIL': True,
+    'SET_USERNAME_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
+    'SERIALIZERS': {
+        'user_create': 'apps.user.serializers.UserCreateSerializer',
+        'user': 'apps.user.serializers.UserSerializer',
+        'current_user': 'apps.user.serializers.UserSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    },
+
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10080),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=130),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.AccessToken',
+    )
+}
+    
+AUTH_USER_MODEL = 'user.UserAccount'
+
+
+
+
+if not DEBUG:
     ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
     CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
     CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
 
 
     DATABASES = {
-        'default': env.db('DATABASE_URL'),
+        'default': env.db('DATABASE_URL_DEPLOY'),
     }
     DATABASES['default']['ATOMIC_REQUESTS'] = True
