@@ -9,12 +9,15 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DOMAIN='http://localhost:8000'
+
 SECRET_KEY = os.environ.get('SECRET_KEY')
 JWT_SECRET = os.environ.get('JWT_SECRET')
 
+
 DEBUG=True
 
-# ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEV')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -27,7 +30,6 @@ DJANGO_APPS = [
 
 PROJECT_APPS = [
     'apps.user',
-    'apps.users',
     'apps.pdf_data_processing'
 
 ]
@@ -35,13 +37,12 @@ PROJECT_APPS = [
 THIRD_PARTY_APPS = [
     'corsheaders',
     'rest_framework',
-    'ckeditor',
-    'ckeditor_uploader',
-    'simple_history',
-    'drf_yasg',
     'djoser',
+    'social_django',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'ckeditor',
+    'ckeditor_uploader'
 
 ]
 
@@ -106,12 +107,11 @@ DATABASES = {
     }
 
 PASSWORD_HASHERS = [
-    'django.contrib.auth.hashers.Argon2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.BKDF2SHA1PasswordHasher',
-    'django.contrib.auth.hashers.BcryptSHA256PasswordHasher',
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
 ]
-
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -149,61 +149,55 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny'
     ],
-    # 'DEFAULT_PARSER_CLASSES': (
-    #     'rest_framework.parsers.FormParser',
-    #     'rest_framework.parsers.MultiPartParser'
-    #     )
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
-# CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEV')
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEV')
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS_DEPLOY')
-CORS_ORIGIN_WHITELIST = env.list('CORS_ORIGIN_WHITELIST_DEPLOY')
-CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS_DEPLOY')
-
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT', ),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10080),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ROTATE_REFRESFH_TOKENS':True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.AccessToken',
+    )
+}
 
 DJOSER = {
-    'LOGIN_FIELD': 'username',
-    'USER_CREATE_PASSWORD_RETYPE':  True,
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
     'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
     'SEND_CONFIRMATION_EMAIL': True,
     'SEND_ACTIVATION_EMAIL': True,
     'SET_USERNAME_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
     'SET_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
-    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-    'USERNAME_RESET_CONFIRM_URL': 'username/reset/confirm/{uid}/{token}',
-    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://localhost:8000/google', 'http://localhost:8000/facebook'],
     'SERIALIZERS': {
-        'user_create': 'apps.user.serializers.UserCreateSerializer',
+        'user_create': 'apps.user.serializers.UserSerializer',
         'user': 'apps.user.serializers.UserSerializer',
         'current_user': 'apps.user.serializers.UserSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-
 }
 
-SIMPLE_JWT = {
-    'AUTH_HEADER_TYPES': ('JWT',),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10080),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=130),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
-    'AUH_TOKEN_CLASSES': (
-        'rest_framework_simplejwt.tokens.AccessToken',
-    )
-}
     
 AUTH_USER_MODEL = 'user.UserAccount'
 
 
+EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend'
 
 
 if not DEBUG:

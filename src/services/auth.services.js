@@ -1,6 +1,4 @@
 import axios from "axios";
-import getCookie from "./utils";
-import Cookies from 'universal-cookie';
 
 
 //production
@@ -8,8 +6,6 @@ const API_URL = "http://3.14.131.158:8085/api/user/";
 
 //local
 //const API_URL = "http://localhost:8081/api/user/";
-
-const cookies = new Cookies();
 
 
 const instance = axios.create({

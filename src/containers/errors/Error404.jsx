@@ -1,7 +1,10 @@
+import Layout from "../../hocs/layouts/Layout";
+import { connect } from "react-redux";
 
 function Error404() {
     return (
-        <div className="grid h-screen px-4 bg-white place-content-center">
+        <Layout>
+            <div className="grid h-screen px-4 bg-white place-content-center">
             <div className="text-center">
                 <h1 className="font-black text-gray-200 text-9xl">404</h1>
 
@@ -19,7 +22,13 @@ function Error404() {
                 </a>
             </div>
             </div>
+        </Layout>
     );
 }
+const mapStateToProps=state =>({
 
-export default Error404;
+})
+
+export default connect(mapStateToProps,{
+    
+})(Error404)

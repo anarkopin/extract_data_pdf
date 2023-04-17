@@ -1,31 +1,19 @@
-import { useState } from "react";
-import ListData from "../../components/ListData";
-import Navbar from "../../components/navigation/Navbar";
-import UploadFile from "../../components/UploadFile";
+import { connect } from "react-redux";
 import Layout from "../../hocs/layouts/Layout";
 
 function Home() {
-
-    const [data, setData] = useState([]);
-
-    const handleChangeProduct = (objectData) => {
-        setData(objectData);
-    }
-
-    
     return (
         <Layout>
-            <Navbar />
-            <div className="pt-96 w-full flex justify-center">
-                <UploadFile handleChangeProduct={handleChangeProduct}/>
-            </div>
-            <div className="mt-10">
-                <ListData data={data} />
-
-            </div>
+            <h1>Home</h1>
      
         </Layout>
     );
 }
 
-export default  Home;
+const mapStateToProps=state =>({
+
+})
+
+export default connect(mapStateToProps,{
+    
+})(Home)

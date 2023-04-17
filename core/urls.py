@@ -23,18 +23,15 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-   path(r'^auth/', include('djoser.urls')),
-   path(r'^auth/', include('djoser.urls.jwt')),
+   path('auth/', include('djoser.urls')),
+   path('auth/', include('djoser.urls.jwt')),
    path('admin/', admin.site.urls),
-   # path('api/user/', include('apps.users.urls')),
    path('api/pdf/operations/', include('apps.pdf_data_processing.urls')),
    
    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-   
 ]
-
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

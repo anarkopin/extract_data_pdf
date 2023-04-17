@@ -10,10 +10,6 @@ from . import models
 
 #importar authentication_classes
 
-
-from apps.users import authentication
-
-@authentication_classes([authentication.CustomUserAuthentication])
 class extract_data_pdf(APIView):
     # authentication_classes = (authentication.CustomUserAuthentication, )
     # permission_classes = (permissions.IsAuthenticated, )
